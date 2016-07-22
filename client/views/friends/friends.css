@@ -1,0 +1,18 @@
+.search-title {
+    margin: 0;
+}
+
+.friends-list {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.friends-title {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+span.pagination-counts {
+    font-size: 0.8em;
+    font-style: italic;
+}

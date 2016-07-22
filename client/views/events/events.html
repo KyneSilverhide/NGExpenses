@@ -1,0 +1,54 @@
+<div>
+    <md-card>
+        <md-card-title class="events-title">
+            <md-card-title-text>
+                <md-input-container md-no-float flex="66" class="search-title">
+                    <md-icon md-svg-icon="action:ic_search_24px" class="name"></md-icon>
+                    <input type="Search" ng-model="eventsearch" placeholder="Search events...">
+                </md-input-container>
+            </md-card-title-text>
+        </md-card-title>
+    </md-card>
+
+    <md-card>
+        <md-card-title layout="row">
+            <md-card-title-text flex="33">
+                <span class="md-headline">Brasse Temps</span>
+                <span class="md-subhead">10/03/2016</span>
+            </md-card-title-text>
+            <md-card-title-text flex="66">
+                <md-list>
+                    <md-list-item class="md-2-line" ng-click="null">
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Note</h3>
+                            <p>30€</p>
+                            <md-chips>
+                                <md-chip>Aurélien Lansmanne</md-chip>
+                                <md-chip>Kevin Nalinne</md-chip>
+                                <md-chip>Johan Watelet</md-chip>
+                            </md-chips>
+                        </div>
+                    </md-list-item>
+                    <md-list-item class="md-2-line" ng-click="null">
+                        <div class="md-list-item-text" layout="column">
+                            <h3>Deuxième tournée</h3>
+                            <p>15€</p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-card-title-text>
+        </md-card-title>
+    </md-card>
+
+    <md-card>
+        <md-card-actions layout="row" layout-align="end center">
+                <span class="pagination-counts">
+                    {{matchingEventsCount.count}} /
+                    <ng-pluralize count="totalEventsCount.count"
+                                  when="{'0': '0 event','one': '1 event','other': '{} events'}"></ng-pluralize>
+                </span>
+            <span flex></span>
+            <md-button class="md-primary" ng-click="showEventModal()">Add Event</md-button>
+        </md-card-actions>
+    </md-card>
+</div>

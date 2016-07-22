@@ -1,0 +1,14 @@
+img.avatar {
+    height: 40px;
+    width: auto;
+    border-radius: 50%;
+}
+
+div.user-details {
+    padding: 10px;
+}
+
+small.email {
+    font-size: 0.6em;
+    font-style: italic;
+}

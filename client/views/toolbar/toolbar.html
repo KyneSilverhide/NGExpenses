@@ -1,0 +1,26 @@
+<md-toolbar layout="row" ng-show="$root.currentUser">
+    <div class="md-toolbar-tools">
+        <h1>
+            <md-button ng-href="/">
+                <md-icon md-svg-icon="action:ic_home_24px"></md-icon>
+                Expenses
+            </md-button>
+        </h1>
+        <span flex></span>
+        <div ng-show="$root.currentUser" layout="row" layout-align="center center">
+            <div layout="row">
+                <img class="avatar" ng-src="{{$root.currentUser.services.google.picture}}"/>
+            </div>
+            <div layout="column" class="user-details">
+                <small>{{ $root.currentUser.profile.name }}</small>
+                <small class="email">{{ $root.currentUser.services.google.email }}</small>
+            </div>
+            <div layout="row">
+                <md-button ng-href="/logout">
+                    <md-icon md-svg-icon="action:ic_exit_to_app_24px"></md-icon>
+                    <span hide-sm> Logout</span>
+                </md-button>
+            </div>
+        </div>
+    </div>
+</md-toolbar>

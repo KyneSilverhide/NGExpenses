@@ -1,0 +1,24 @@
+<md-dialog flex layout-padding>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Adding a new friend</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content layout="column" flex>
+        <form name="friendForm" layout="column" flex novalidate>
+            <md-input-container flex>
+                <label>Name</label>
+                <input type="text" ng-model="newFriend.name" required/>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Email</label>
+                <input type="email" ng-model="newFriend.email" required/>
+            </md-input-container>
+        </form>
+        <small>Your friend will be linked to its Google account once he as logged in into the application using the mail defined above</small>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="closeDialog()">Cancel</md-button>
+        <md-button ng-click="validateAndSaveFriend()" ng-disabled="friendForm.$invalid" class="md-primary">Add Friend</md-button>
+    </md-dialog-actions>
+</md-dialog>

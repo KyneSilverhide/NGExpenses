@@ -1,0 +1,42 @@
+<div>
+    <md-card>
+        <md-card-title class="friends-title">
+            <md-card-title-text>
+                <md-input-container md-no-float flex="66" class="search-title">
+                    <md-icon md-svg-icon="action:ic_search_24px" class="name"></md-icon>
+                    <input type="Search" ng-model="friendsearch" placeholder="Search friends...">
+                </md-input-container>
+            </md-card-title-text>
+        </md-card-title>
+    </md-card>
+
+    <md-card>
+        <md-list class="friends-list">
+            <md-list-item class="md-2-line" dir-paginate="friend in friends | itemsPerPage: perPage"
+                          total-items="matchingFriendsCount.count" aria-label="{{friend.name}}" ng-click="null">
+                <img ng-show="friend.userId && friend.gavatar" ng-src="{{friend.gavatar}}" class="md-avatar" title="Account linked to Google" />
+                <ng-letter-avatar ng-hide="friend.userId && friend.gavatar" data="{{friend.name}}" height="40px" width="40px" shape="round" class="md-avatar"></ng-letter-avatar>
+                <div class="md-list-item-text" layout="column">
+                    <h3>{{friend.name}}</h3>
+                    <h4>{{friend.email}}</h4>
+                </div>
+                <p>10€</p>
+            </md-list-item>
+        </md-list>
+        <dir-pagination-controls template-url="client/views/pagination/pagination.html"
+                                 on-page-change="pageChanged(newPageNumber)">
+        </dir-pagination-controls>
+    </md-card>
+
+    <md-card>
+        <md-card-actions layout="row" layout-align="end center">
+                <span class="pagination-counts">
+                    {{matchingFriendsCount.count}} /
+                    <ng-pluralize count="totalFriendsCount.count"
+                                  when="{'0': '0 friend','one': '1 friend','other': '{} friends'}"></ng-pluralize>
+                </span>
+            <span flex></span>
+            <md-button class="md-primary" ng-click="showFriendModal()">Add friend</md-button>
+        </md-card-actions>
+    </md-card>
+</div>
