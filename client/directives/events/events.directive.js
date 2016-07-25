@@ -14,14 +14,14 @@ angular.module('NgExpenses')
 
                 $meteor.autorun($scope, function () {
                     $meteor.subscribe('events', {
-                        sort: $scope.getReactively('sort')
+                        sort: $scope.sort
                     }, $scope.getReactively('eventsearch'), $scope.getReactively('ignoreCompleted')).then(function () {
                         $scope.matchingEventsCount = $meteor.object(Counts, 'matchingEvents', false);
                     });
                 });
 
-                $scope.events = $meteor.collection(function () {
-                    return Events.find({}, {sort: $scope.getReactively('sort')});
+                $scope.myevents = $meteor.collection(function () {
+                    return Events.find({});
                 });
 
                 $scope.totalEventsCount = $meteor.object(Counts, 'totalEvents', false);

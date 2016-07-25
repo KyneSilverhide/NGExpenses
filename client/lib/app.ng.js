@@ -4,7 +4,8 @@ angular.module('NgExpenses', [
     'ngMaterial',
     'angularUtils.directives.dirPagination',
     'accounts.ui',
-    'ngLetterAvatar'
+    'ngLetterAvatar',
+    'ngMessages',
 ]);
 
 onReady = function () {

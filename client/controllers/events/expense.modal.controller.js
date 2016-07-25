@@ -21,7 +21,6 @@ angular.module('NgExpenses').controller('ExpenseModalCtrl', ['$scope', '$meteor'
             if ($scope.expenseForm.$valid && $rootScope.currentUser) {
 
                 $scope.events = $meteor.collection(Events).subscribe('events');
-
                 $scope.newExpense.createdby = $rootScope.currentUser._id;
                 $scope.newExpense.createdat = new Date();
 

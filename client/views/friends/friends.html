@@ -4,7 +4,7 @@
             <md-card-title-text>
                 <md-input-container md-no-float flex="66" class="search-title">
                     <md-icon md-svg-icon="action:ic_search_24px" class="name"></md-icon>
-                    <input type="search" ng-model="friendsearch" placeholder="Search friends...">
+                    <input type="friendsearch" ng-model="friendsearch" placeholder="Search friends...">
                 </md-input-container>
             </md-card-title-text>
         </md-card-title>
@@ -19,7 +19,7 @@
                     <h3>{{friend.name}}</h3>
                     <h4>{{friend.email}}</h4>
                 </div>
-                <p ng-if="!userIsFriend(friend)">{{ getDueExpense(friend) }} €</p>
+                <p ng-if="!userIsFriend(friend)">{{ getDueExpense(friend) | currency:"€ ":2 }}</p>
                 <md-icon ng-if="!userIsFriend(friend)" md-svg-icon="action:ic_delete_24px" ng-click="deleteFriend(friend)" aria-label="Delete friend" class="md-secondary md-hue-3"></md-icon>
             </md-list-item>
         </md-list>

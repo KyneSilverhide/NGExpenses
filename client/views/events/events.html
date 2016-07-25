@@ -1,5 +1,5 @@
 <div>
-    <md-card ng-if="totalEventsCount.count > 0">>
+    <md-card ng-if="totalEventsCount.count > 0">
         <md-card-title class="events-title">
             <md-card-title-text layout="row">
                 <md-input-container md-no-float flex class="search-title">
@@ -16,50 +16,50 @@
         </md-card-title>
     </md-card>
 
-    <md-card ng-repeat="event in events" ng-class="event.completed? 'completed' : ''">
-        <md-card-title layout="column">
-            <div layout="row">
-                <md-card-title-text flex="33">
-                    <span class="md-headline">{{event.name}}</span>
+    <div layout="row" layout-wrap>
+        <md-card ng-repeat="event in myevents" ng-class="event.completed? 'completed' : ''" flex="40">
+            <md-card-title>
+                <md-card-title-text>
                     <span class="md-subhead">{{event.date | date : 'dd/MM/yyyy'}}</span>
-                    <span ng-if="event.completed">
-                        This event is <i>completed</i>
-                    </span>
-                    <span>
-                        <strong>Total : </strong> {{ getTotalAmount(event) }} €
-                    </span>
+                    <span class="md-headline">{{event.name}}</span>
+                    <span class="md-subhead" ng-if="event.completed">This event is <i>completed</i></span>
                 </md-card-title-text>
-                <md-card-title-text flex="66">
-                    <md-list>
-                        <md-list-item class="md-2-line" ng-click="null" ng-repeat="expense in event.expenses">
-                            <div class="md-list-item-text" layout="column">
-                                <div layout="row">
-                                    <h3><strong>{{expense.name}}</strong> : {{expense.amount}} €</h3>
-                                </div>
-                                <md-chips ng-model="expense.friends" readonly="true">
-                                    <md-chip-template>{{$chip.name}}</md-chip-template>
-                                </md-chips>
+            </md-card-title>
+            <md-card-content ng-if="event.expenses.length > 0">
+                <md-list>
+                    <md-list-item class="md-2-line" ng-click="null" ng-repeat="expense in event.expenses">
+                        <div class="md-list-item-text" layout="column">
+                            <div layout="row">
+                                <h3><strong>{{expense.name}}</strong> : {{expense.amount}} €</h3>
                             </div>
-                        </md-list-item>
-                    </md-list>
-                </md-card-title-text>
-            </div>
-            <div layout="row">
-                <div flex="33">
-                    <md-button class="md-raised md-hue-2 md-primary" ng-click="markEventCompleted($event, event._id)" ng-hide="event.completed">
-                        <md-icon md-svg-icon="action:ic_done_24px"></md-icon>
-                        Mark completed
+                            <md-chips ng-model="expense.friends" readonly="true">
+                                <md-chip-template>{{$chip.name}}</md-chip-template>
+                            </md-chips>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+            <md-card-footer layout="row">
+                <div flex layout="row" layout-align="start center">
+                    <div><strong>Total : </strong> {{ getTotalAmount(event) | currency:"€ ":2 }} </div>
+                </div>
+                <div flex layout="row" layout-align="end center">
+                    <md-button class="md-icon-button" ng-click="markEventCompleted($event, event._id)" ng-hide="event.completed">
+                        <md-tooltip md-direction="top">
+                            Complete event
+                        </md-tooltip>
+                        <md-icon md-svg-icon="action:ic_check_circle_24px"></md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button" ng-click="showExpenseModal(event._id)" ng-hide="event.completed">
+                        <md-tooltip md-direction="top">
+                            Add expense
+                        </md-tooltip>
+                        <md-icon md-svg-icon="content:ic_add_circle_24px"></md-icon>
                     </md-button>
                 </div>
-                <div flex="66">
-                    <md-button class="md-raised md-hue-2 md-primary" ng-click="showExpenseModal(event._id)" ng-hide="event.completed">
-                        <md-icon md-svg-icon="editor:ic_attach_money_24px"></md-icon>
-                        Add expense
-                    </md-button>
-                </div>
-            </div>
-        </md-card-title>
-    </md-card>
+            </md-card-footer>
+        </md-card>
+    </div>
 
     <md-card ng-if="totalEventsCount.count > 0">
         <md-card-actions layout="row" layout-align="end center">

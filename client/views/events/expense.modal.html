@@ -5,14 +5,20 @@
         </div>
     </md-toolbar>
     <md-dialog-content layout="column">
-        <form name="expenseForm" layout="column" novalidate>
+        <form name="expenseForm" layout="column">
             <md-input-container flex>
                 <label>Name</label>
-                <input type="text" ng-model="newExpense.name" required/>
+                <input type="text" name="name" ng-model="newExpense.name" required/>
+                <div ng-messages="expenseForm.name.$error">
+                    <div ng-message="required">This expense needs a name</div>
+                </div>
             </md-input-container>
             <md-input-container flex>
                 <label>Amount</label>
-                <input type="number" ng-model="newExpense.amount" required/>
+                <input type="number" name="amount" ng-model="newExpense.amount" required/>
+                <div ng-messages="expenseForm.amount.$error">
+                    <div ng-message="required">Amount must be filled</div>
+                </div>
             </md-input-container>
         </form>
         <h2>Friends</h2>
@@ -34,6 +40,6 @@
     </md-dialog-content>
     <md-dialog-actions>
         <md-button ng-click="closeDialog()">Cancel</md-button>
-        <md-button ng-click="validateAndSaveExpense()" ng-disabled="eventForm.$invalid" class="md-primary">Create event</md-button>
+        <md-button ng-click="validateAndSaveExpense()" ng-disabled="expenseForm.$invalid" class="md-primary">Create event</md-button>
     </md-dialog-actions>
 </md-dialog>

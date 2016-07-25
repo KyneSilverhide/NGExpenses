@@ -17,11 +17,7 @@ angular.module('NgExpenses')
                     }, $scope.getReactively('friendsearch')).then(function () {
                         $scope.matchingFriendsCount = $meteor.object(Counts, 'matchingFriends', false);
                     });
-                    $meteor.subscribe('events', {
-                        sort: $scope.getReactively('sort')
-                    }, $scope.getReactively('eventsearch'), $scope.getReactively('ignoreCompleted')).then(function () {
-                        $scope.matchingEventsCount = $meteor.object(Counts, 'matchingEvents', false);
-                    });
+                    $meteor.subscribe('events');
                 });
 
                 $scope.friends = $meteor.collection(function () {
@@ -29,7 +25,7 @@ angular.module('NgExpenses')
                 });
 
                 $scope.events = $meteor.collection(function () {
-                    return Events.find({}, {sort: $scope.getReactively('sort')});
+                    return Events.find({});
                 });
 
                 $scope.totalFriendsCount = $meteor.object(Counts, 'totalFriends', false);

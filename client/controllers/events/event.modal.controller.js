@@ -9,18 +9,18 @@ angular.module('NgExpenses').controller('EventModalCtrl', ['$scope', '$meteor', 
 
         $scope.validateAndSaveEvent = function () {
             if ($scope.eventForm.$valid && $rootScope.currentUser) {
-                $scope.newExpense.createdby = $rootScope.currentUser._id;
-                $scope.newExpense.createdat = new Date();
-                $scope.newExpense.completed = false;
+                $scope.newEvent.createdby = $rootScope.currentUser._id;
+                $scope.newEvent.createdat = new Date();
+                $scope.newEvent.completed = false;
 
-                $scope.events.save($scope.newExpense);
+                $scope.events.save($scope.newEvent);
                 $scope.closeDialog();
                 resetCurrent();
             }
         };
 
         function resetCurrent() {
-            $scope.newExpense = {
+            $scope.newEvent = {
                 date: new Date(),
                 name: ''
             };
