@@ -1,0 +1,39 @@
+<md-dialog flex layout-padding>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2><strong>{{event.name}}</strong> : Adding a new expense</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content layout="column">
+        <form name="expenseForm" layout="column" novalidate>
+            <md-input-container flex>
+                <label>Name</label>
+                <input type="text" ng-model="newExpense.name" required/>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Amount</label>
+                <input type="number" ng-model="newExpense.amount" required/>
+            </md-input-container>
+        </form>
+        <h2>Friends</h2>
+        <md-list>
+            <md-list-item class="md-2-line friend-option" ng-repeat="friend in friends" layout="row" layout-wrap>
+                <img ng-show="friend.userId && friend.gavatar" ng-src="{{friend.gavatar}}" class="md-avatar" title="Account linked to Google" />
+                <ng-letter-avatar ng-hide="friend.userId && friend.gavatar" data="{{friend.name}}" height="40px" width="40px" shape="round" class="md-avatar"></ng-letter-avatar>
+                <div class="md-item-text" flex>
+                    <h3>
+                        <md-checkbox ng-checked="friend.userId === $root.currentUser._id || exists(friend, newExpense.friends)" class="friends-checkboxes"
+                                     ng-click="toggle(friend, newExpense.friends)">
+                            {{friend.name}}
+                        </md-checkbox>
+                    </h3>
+                    <p>{{friend.email}}</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="closeDialog()">Cancel</md-button>
+        <md-button ng-click="validateAndSaveExpense()" ng-disabled="eventForm.$invalid" class="md-primary">Create event</md-button>
+    </md-dialog-actions>
+</md-dialog>

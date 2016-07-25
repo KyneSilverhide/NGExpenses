@@ -28,7 +28,17 @@ Meteor.publish('friends', function (options, searchString) {
 });
 
 Meteor.methods({
-    linkToGoogleUsingEmail: function (email, googleAvatarURL) {
-        Friends.update({'email': email}, {$set: {'userId': Meteor.userId(), 'gavatar': googleAvatarURL}});
+    linkMatchingFriendsToGoogle: function (email, googleAvatarURL) {
+        Friends.update(
+            {'email': email},
+            {$set: {'userId': Meteor.userId(), 'gavatar': googleAvatarURL}},
+            {multi: true}
+        );
+    },
+    linkFriendToGoogle: function (friendId, userId, googleAvatarURL) {
+        Friends.update(
+            {'_id': friendId },
+            {$set: {'userId': userId, 'gavatar': googleAvatarURL}}
+        );
     }
 });

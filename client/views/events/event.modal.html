@@ -1,0 +1,25 @@
+<md-dialog flex layout-padding>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Adding a new event</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content layout="column" flex>
+        <form name="eventForm" layout="column" flex novalidate>
+            <md-input-container flex>
+                <label>Name</label>
+                <input type="text" ng-model="newEvent.name" required/>
+            </md-input-container>
+            <div flex>
+                <label>Date</label>
+                <md-datepicker ng-model="newEvent.date" md-placeholder="Enter date"></md-datepicker>
+            </div>
+        </form>
+        <md-divider></md-divider>
+        <small class="notice">Once your event has been created, you will be able to add expenses and friends</small>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="closeDialog()">Cancel</md-button>
+        <md-button ng-click="validateAndSaveEvent()" ng-disabled="eventForm.$invalid" class="md-primary">Create event</md-button>
+    </md-dialog-actions>
+</md-dialog>

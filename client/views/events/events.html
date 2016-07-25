@@ -1,54 +1,88 @@
 <div>
-    <md-card>
+    <md-card ng-if="totalEventsCount.count > 0">>
         <md-card-title class="events-title">
-            <md-card-title-text>
-                <md-input-container md-no-float flex="66" class="search-title">
+            <md-card-title-text layout="row">
+                <md-input-container md-no-float flex class="search-title">
                     <md-icon md-svg-icon="action:ic_search_24px" class="name"></md-icon>
                     <input type="Search" ng-model="eventsearch" placeholder="Search events...">
+                </md-input-container>
+                <span flex="20"></span>
+                <md-input-container md-no-float flex="15" class="search-title">
+                    <md-checkbox ng-model="ignoreCompleted">
+                        Show completed
+                    </md-checkbox>
                 </md-input-container>
             </md-card-title-text>
         </md-card-title>
     </md-card>
 
-    <md-card>
-        <md-card-title layout="row">
-            <md-card-title-text flex="33">
-                <span class="md-headline">Brasse Temps</span>
-                <span class="md-subhead">10/03/2016</span>
-            </md-card-title-text>
-            <md-card-title-text flex="66">
-                <md-list>
-                    <md-list-item class="md-2-line" ng-click="null">
-                        <div class="md-list-item-text" layout="column">
-                            <h3>Note</h3>
-                            <p>30€</p>
-                            <md-chips>
-                                <md-chip>Aurélien Lansmanne</md-chip>
-                                <md-chip>Kevin Nalinne</md-chip>
-                                <md-chip>Johan Watelet</md-chip>
-                            </md-chips>
-                        </div>
-                    </md-list-item>
-                    <md-list-item class="md-2-line" ng-click="null">
-                        <div class="md-list-item-text" layout="column">
-                            <h3>Deuxième tournée</h3>
-                            <p>15€</p>
-                        </div>
-                    </md-list-item>
-                </md-list>
-            </md-card-title-text>
+    <md-card ng-repeat="event in events" ng-class="event.completed? 'completed' : ''">
+        <md-card-title layout="column">
+            <div layout="row">
+                <md-card-title-text flex="33">
+                    <span class="md-headline">{{event.name}}</span>
+                    <span class="md-subhead">{{event.date | date : 'dd/MM/yyyy'}}</span>
+                    <span ng-if="event.completed">
+                        This event is <i>completed</i>
+                    </span>
+                    <span>
+                        <strong>Total : </strong> {{ getTotalAmount(event) }} €
+                    </span>
+                </md-card-title-text>
+                <md-card-title-text flex="66">
+                    <md-list>
+                        <md-list-item class="md-2-line" ng-click="null" ng-repeat="expense in event.expenses">
+                            <div class="md-list-item-text" layout="column">
+                                <div layout="row">
+                                    <h3><strong>{{expense.name}}</strong> : {{expense.amount}} €</h3>
+                                </div>
+                                <md-chips ng-model="expense.friends" readonly="true">
+                                    <md-chip-template>{{$chip.name}}</md-chip-template>
+                                </md-chips>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-card-title-text>
+            </div>
+            <div layout="row">
+                <div flex="33">
+                    <md-button class="md-raised md-hue-2 md-primary" ng-click="markEventCompleted($event, event._id)" ng-hide="event.completed">
+                        <md-icon md-svg-icon="action:ic_done_24px"></md-icon>
+                        Mark completed
+                    </md-button>
+                </div>
+                <div flex="66">
+                    <md-button class="md-raised md-hue-2 md-primary" ng-click="showExpenseModal(event._id)" ng-hide="event.completed">
+                        <md-icon md-svg-icon="editor:ic_attach_money_24px"></md-icon>
+                        Add expense
+                    </md-button>
+                </div>
+            </div>
         </md-card-title>
     </md-card>
 
-    <md-card>
+    <md-card ng-if="totalEventsCount.count > 0">
         <md-card-actions layout="row" layout-align="end center">
-                <span class="pagination-counts">
-                    {{matchingEventsCount.count}} /
-                    <ng-pluralize count="totalEventsCount.count"
-                                  when="{'0': '0 event','one': '1 event','other': '{} events'}"></ng-pluralize>
-                </span>
+            <span class="pagination-counts">
+                {{matchingEventsCount.count}} /
+                <ng-pluralize count="totalEventsCount.count"
+                              when="{'0': '0 event','one': '1 event','other': '{} events'}"></ng-pluralize>
+            </span>
             <span flex></span>
-            <md-button class="md-primary" ng-click="showEventModal()">Add Event</md-button>
+            <md-button class="md-raised md-primary" ng-click="showEventModal()">
+                <md-icon md-svg-icon="file:ic_create_new_folder_24px"></md-icon>
+                Add Event
+            </md-button>
+        </md-card-actions>
+    </md-card>
+
+    <md-card ng-if="totalEventsCount.count == 0" layout-align="center center">
+        <p>You should start by adding some friends, and then create your first event !</p>
+        <md-card-actions layout="column">
+            <md-button class="md-raised md-primary" ng-click="showEventModal()">
+                <md-icon md-svg-icon="file:ic_create_new_folder_24px"></md-icon>
+                Add Event
+            </md-button>
         </md-card-actions>
     </md-card>
 </div>

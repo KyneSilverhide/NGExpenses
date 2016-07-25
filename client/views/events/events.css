@@ -16,3 +16,29 @@ span.pagination-counts {
     font-size: 0.8em;
     font-style: italic;
 }
+
+.completed {
+    color: gray;
+}
+
+small.notice {
+    margin-top: 20px;
+}
+
+.friend-option {
+    float: left;
+    width: 33%;
+    box-sizing: border-box;
+}
+
+.friend-option .md-item-text {
+    padding: 8px;
+    background: #f0f0f0;
+    border-radius: 3px;
+}
+
+.friend-option .md-item-text h3, .friend-option .md-item-text p, .friend-option md-checkbox {
+    padding: 0;
+    margin: 0;
+}
+

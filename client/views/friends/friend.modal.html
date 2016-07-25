@@ -15,7 +15,13 @@
                 <input type="email" ng-model="newFriend.email" required/>
             </md-input-container>
         </form>
-        <small>Your friend will be linked to its Google account once he as logged in into the application using the mail defined above</small>
+        <small><md-icon md-svg-icon="action:ic_info_24px"></md-icon>
+            Your friends will be automatically linked to any user sharing the same email
+            <ul>
+                <li>If the user already exists, the link will be done right now</li>
+                <li>Otherwise, the users needs to login at least once with its Google account</li>
+            </ul>
+        </small>
     </md-dialog-content>
     <md-dialog-actions>
         <md-button ng-click="closeDialog()">Cancel</md-button>

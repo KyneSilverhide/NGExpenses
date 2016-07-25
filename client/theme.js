@@ -16,6 +16,8 @@ angular.module('NgExpenses')
             .iconSet('toggle', iconPath + 'svg-sprite-toggle.svg')
             .iconSet('navigation', iconPath + 'svg-sprite-navigation.svg')
             .iconSet('image', iconPath + 'svg-sprite-image.svg')
+            .iconSet('file', iconPath + 'svg-sprite-file.svg')
+            .iconSet('editor', iconPath + 'svg-sprite-editor.svg')
             .icon('GLogo', 'images/Google_-G-_Logo.svg');
     });
 

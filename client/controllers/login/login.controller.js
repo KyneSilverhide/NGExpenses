@@ -11,8 +11,7 @@ angular.module("NgExpenses").controller("LoginCtrl", ['$meteor', '$state', '$sco
                     var user = Meteor.user();
                     var email = user.services.google.email;
                     var avatarURL = user.services.google.picture;
-                    console.log(user.services.google);
-                    $meteor.call('linkToGoogleUsingEmail', email, avatarURL);
+                    $meteor.call('linkMatchingFriendsToGoogle', email, avatarURL);
 
                     $state.go('dashboard');
                 },

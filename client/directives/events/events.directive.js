@@ -6,18 +6,16 @@ angular.module('NgExpenses')
             restrict: 'AE',
             templateUrl: 'client/views/events/events.html',
             replace: true,
+            scope: {},
             controller: function ($scope, $meteor, $mdDialog) {
 
-                $scope.page = 1;
-                $scope.perPage = 6;
-                $scope.sort = [['createdat', 1], ['name', 1]];
+                $scope.sort = [['date', 'desc'], ['name', 'asc']];
+                $scope.ignoreCompleted = false;
 
                 $meteor.autorun($scope, function () {
                     $meteor.subscribe('events', {
-                        limit: parseInt($scope.getReactively('perPage')),
-                        skip: parseInt(($scope.getReactively('page') - 1) * $scope.getReactively('perPage')),
                         sort: $scope.getReactively('sort')
-                    }, $scope.getReactively('eventsearch')).then(function () {
+                    }, $scope.getReactively('eventsearch'), $scope.getReactively('ignoreCompleted')).then(function () {
                         $scope.matchingEventsCount = $meteor.object(Counts, 'matchingEvents', false);
                     });
                 });
@@ -28,19 +26,46 @@ angular.module('NgExpenses')
 
                 $scope.totalEventsCount = $meteor.object(Counts, 'totalEvents', false);
 
-                // $scope.showFriendModal = function () {
-                //     $mdDialog.show({
-                //         controller: 'FriendModalCtrl',
-                //         parent: angular.element(document.body),
-                //         templateUrl: 'client/views/friends/friend.modal.html',
-                //         clickOutsideToClose: true
-                //     })
-                // };
-
-                $scope.pageChanged = function (newPage) {
-                    console("PAGE CHANGED TO " + newPage);
-                    $scope.page = newPage;
+                $scope.showEventModal = function () {
+                    $mdDialog.show({
+                        controller: 'EventModalCtrl',
+                        parent: angular.element(document.body),
+                        templateUrl: 'client/views/events/event.modal.html',
+                        clickOutsideToClose: true
+                    })
                 };
+
+                $scope.showExpenseModal = function (eventId) {
+
+                    var currentEvent = $meteor.object(Events, eventId);
+                    $mdDialog.show({
+                        controller: 'ExpenseModalCtrl',
+                        parent: angular.element(document.body),
+                        templateUrl: 'client/views/events/expense.modal.html',
+                        clickOutsideToClose: true,
+                        locals: {event: currentEvent}
+                    })
+                };
+
+                $scope.markEventCompleted = function (clickEvent, eventId) {
+                    var confirm = $mdDialog.confirm("TEST")
+                        .title('Are you sure you want to complete this event?')
+                        .textContent('All expenses inside this event will be considered paid')
+                        .targetEvent(clickEvent)
+                        .ok('Yes')
+                        .cancel('Cancel');
+                    $mdDialog.show(confirm).then(function () {
+                        $meteor.call('markCompleted', eventId);
+                    });
+                };
+
+                $scope.getTotalAmount = function (event) {
+                    var total = 0;
+                    angular.forEach(event.expenses, function (value) {
+                        total += value.amount;
+                    });
+                    return total;
+                }
             }
         };
     });
