@@ -9,8 +9,6 @@ Meteor.publish('events', function (options, searchString, ignoreCompleted) {
     if(!ignoreCompleted) {
         andConditions.push({'completed': false});
     }
-    console.log("SEARCH", searchString);
-    console.log("CONDITIONS", andConditions);
 
     Counts.publish(this, 'matchingEvents', Events.find({
         'name': {'$regex': '.*' + searchString || '' + '.*', '$options': 'i'},
