@@ -3,7 +3,7 @@
 angular.module('NgExpenses').controller('FriendModalCtrl', ['$scope', '$meteor', '$rootScope', '$mdDialog',
     function ($scope, $meteor, $rootScope, $mdDialog) {
 
-        $scope.friends = $meteor.collection(Friends).subscribe('friends');
+        $scope.friends = $meteor.collection(Friends);
         $scope.$meteorSubscribe('userData');
 
         $scope.validateAndSaveFriend = function () {

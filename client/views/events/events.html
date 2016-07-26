@@ -1,5 +1,5 @@
 <div>
-    <md-card ng-if="totalEventsCount.count > 0">
+    <md-card ng-show="totalEventsCount.count > 0">
         <md-card-title class="events-title">
             <md-card-title-text layout="row">
                 <md-input-container md-no-float flex class="search-title">
@@ -17,7 +17,7 @@
     </md-card>
 
     <div layout="row" layout-wrap>
-        <md-card ng-repeat="event in myevents" ng-class="event.completed? 'completed' : ''" flex="40">
+        <md-card ng-repeat="event in myevents" class="event-card" ng-class="event.completed? 'completed' : ''">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-subhead">{{event.date | date : 'dd/MM/yyyy'}}</span>
@@ -32,7 +32,7 @@
                             <div layout="row">
                                 <h3><strong>{{expense.name}}</strong> : {{expense.amount}} €</h3>
                             </div>
-                            <md-chips ng-model="expense.friends" readonly="true">
+                            <md-chips class="event-chips" ng-model="expense.friends" readonly="true">
                                 <md-chip-template>{{$chip.name}}</md-chip-template>
                             </md-chips>
                         </div>

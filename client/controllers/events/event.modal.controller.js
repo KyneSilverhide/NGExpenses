@@ -3,7 +3,7 @@
 angular.module('NgExpenses').controller('EventModalCtrl', ['$scope', '$meteor', '$rootScope', '$mdDialog',
     function ($scope, $meteor, $rootScope, $mdDialog) {
 
-        $scope.events = $meteor.collection(Events).subscribe('events');
+        $scope.events = $meteor.collection(Events);
 
         resetCurrent();
 

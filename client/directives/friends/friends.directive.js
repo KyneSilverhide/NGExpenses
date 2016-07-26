@@ -17,7 +17,6 @@ angular.module('NgExpenses')
                     }, $scope.getReactively('friendsearch')).then(function () {
                         $scope.matchingFriendsCount = $meteor.object(Counts, 'matchingFriends', false);
                     });
-                    $meteor.subscribe('events');
                 });
 
                 $scope.friends = $meteor.collection(function () {
@@ -40,7 +39,7 @@ angular.module('NgExpenses')
                 };
 
                 $scope.deleteFriend = function(friend) {
-                    // if(!$scope.userIsFriend(friend)) {
+                    if(!$scope.userIsFriend(friend)) {
                         var confirm = $mdDialog.confirm("TEST")
                             .title('Are you sure you want to delete this friend?')
                             .textContent('All expenses linked to its account will be lost')
@@ -49,7 +48,7 @@ angular.module('NgExpenses')
                         $mdDialog.show(confirm).then(function () {
                             $scope.friends.remove(friend);
                         });
-                    // }
+                    }
                 };
 
                 $scope.userIsFriend = function(friend) {

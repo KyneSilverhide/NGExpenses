@@ -4,23 +4,14 @@ angular.module('NgExpenses').controller('ExpenseModalCtrl', ['$scope', '$meteor'
     function ($scope, $meteor, $rootScope, $mdDialog, event) {
 
         $scope.event = event;
-
-        $meteor.autorun($scope, function () {
-            $meteor.subscribe('friends', {
-                sort: $scope.getReactively('sort')
-            });
-        });
-
-        $scope.friends = $meteor.collection(function () {
-            return Friends.find({}, {sort: $scope.getReactively('sort')});
-        });
+        $scope.friends = $meteor.collection(Friends);
 
         resetCurrent();
 
         $scope.validateAndSaveExpense = function () {
             if ($scope.expenseForm.$valid && $rootScope.currentUser) {
 
-                $scope.events = $meteor.collection(Events).subscribe('events');
+                $scope.events = $meteor.collection(Events);
                 $scope.newExpense.createdby = $rootScope.currentUser._id;
                 $scope.newExpense.createdat = new Date();
 
@@ -56,6 +47,10 @@ angular.module('NgExpenses').controller('ExpenseModalCtrl', ['$scope', '$meteor'
                 friends: [],
                 name: '',
                 amount: ''
+            };
+            var meAsFriend = Friends.findOne({'userId': $rootScope.currentUser._id});
+            if(meAsFriend) {
+                $scope.newExpense.friends.push(meAsFriend);
             }
         }
     }]);

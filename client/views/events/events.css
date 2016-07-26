@@ -46,3 +46,7 @@ span.event-date {
     margin-left: 100px;
     font-size: 0.8em;
 }
+
+.event-card {
+    max-width: 33%;
+}

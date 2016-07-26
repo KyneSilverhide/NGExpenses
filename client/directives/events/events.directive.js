@@ -9,8 +9,9 @@ angular.module('NgExpenses')
             scope: {},
             controller: function ($scope, $meteor, $mdDialog) {
 
-                $scope.sort = [['date', 'desc'], ['name', 'asc']];
                 $scope.ignoreCompleted = false;
+                $scope.eventsearch = '';
+                $scope.sort = [['date', 'desc'], ['name', 'asc']];
 
                 $meteor.autorun($scope, function () {
                     $meteor.subscribe('events', {
@@ -36,7 +37,6 @@ angular.module('NgExpenses')
                 };
 
                 $scope.showExpenseModal = function (eventId) {
-
                     var currentEvent = $meteor.object(Events, eventId);
                     $mdDialog.show({
                         controller: 'ExpenseModalCtrl',
